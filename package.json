@@ -8,9 +8,11 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "lint": "eslint src",
+    "pretest": "npm run lint",
+    "test": "exit 0",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
