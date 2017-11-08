@@ -10,6 +10,7 @@ class App extends Component {
     this.state ={
       items: [],
       search: 'rambo',
+      loading: false
     };
   }
   
@@ -31,7 +32,10 @@ class App extends Component {
       })
       .then(res => {
         const items = res.Response === 'True' ? res.Search : [];
-        this.setState({ items });
+        this.setState({ 
+          items,
+          loading: false
+        });
         console.log('items', this.state.items);
       }
       );  
@@ -45,10 +49,11 @@ class App extends Component {
   }
   
   render() {
-
+    const { items, search, loading } = this.state;
+    
     const list = (
       <div>
-        {this.state.items.map(item => <div key={item.imdbID}>
+        {items.map(item => <div key={item.imdbID}>
           <h2> {item.Title} </h2>
           <h3>Released: {item.Year} </h3>
           <img src={item.Poster} alt='movie poster'/>
@@ -56,6 +61,8 @@ class App extends Component {
       </div>
     );
 
+    const load = <div>Loading...</div>;
+    
     return (
       <div className="App">
         <header className="App-header">
@@ -63,11 +70,11 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div>
-          <label>Search Movies : <input name='search' value={this.state.search}
+          <label>Search Movies : <input name='search' value={search}
             onChange={({ target }) => this.changeResource(target.value)}/>
           </label>
         </div>
-        <div>{list}</div>
+        <div>{loading ? load :list}</div>
       </div>
     );
   }
