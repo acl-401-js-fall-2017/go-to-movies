@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-require('dotenv').config();
-
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
 class App extends Component {
@@ -10,7 +8,7 @@ class App extends Component {
     super();
     this.state = {
       items : [],
-      searchQuery : 'Tornado'
+      searchQuery : ''
     };
   }
 
@@ -21,26 +19,22 @@ class App extends Component {
   async loadResource() {
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
-    console.log(`Fetching from url http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`);
-    console.log('Body response is', body);
     if (body.Response === 'True') {
       this.setState({ items: body.Search });
       }
     else {
-      this.setState({ items: [] });
+      this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ] });
     }
   }
   
   handleNewSearch(value) {
-    console.log('changing searchQuery to', value);
-    this.loadResource({ value });
-    this.setState({ searchQuery: value });
+    this.setState({ searchQuery: value }, () => {
+      this.loadResource({ value });
+    })
   }
 
   render() {
-    const { items, searchQuery } = this.state;
-    console.log('items array is', items);
-
+    const { items, searchQuery} = this.state;
     const list = (
       <ul>
         {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}  
@@ -53,21 +47,11 @@ class App extends Component {
           <h1 className="App-title">MovieSearch.org</h1>
         </header>
         <section className="App-intro">
-          <Input searchQuery={searchQuery} onNewSearch={query => this.handleNewSearch(query)}/>
-          {list}
+        <input name="searchText" value={searchQuery}
+        onChange={({ target }) => this.handleNewSearch(target.value)}/>          
+        {list}
         </section>
       </div>
-    );
-  }
-}
-
-class Input extends Component {
-  render() {
-    const { searchQuery, onNewSearch } = this.props;
-    console.log('in Input, searchQuery is', searchQuery);
-    return (
-      <input name="searchText" value={searchQuery}
-        onChange={({ target }) => onNewSearch(target.value)}/>
     );
   }
 }
