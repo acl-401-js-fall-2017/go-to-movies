@@ -10,7 +10,7 @@ class App extends Component {
     super();
     this.state = {
       items : [],
-      query : 'Tornado'
+      searchQuery : 'Tornado'
     };
   }
 
@@ -19,15 +19,19 @@ class App extends Component {
   }
 
   async loadResource() {
-    const response = await fetch(`http://www.omdbapi.com/?s=${this.state.query}&apikey=${omdbKey}`)
+    const response = await fetch(`http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=${omdbKey}`)
     const body = await response.json();
     console.log('BODY IS', body);
     this.setState({ items: body.Search })
   }
   
+  handleNewSearch(value) {
+    console.log('changing searchQuery to', value);
+    this.setState({ searchQuery: value });
+  }
 
   render() {
-    const { items } = this.state;
+    const { items, searchQuery } = this.state;
 
     const list = (
       <ul>
@@ -36,15 +40,26 @@ class App extends Component {
     );
 
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
           <h1 className="App-title">MovieSearch.org</h1>
         </header>
-        <p className="App-intro">
-          :( UNDER CONSTRUCTION :(
-        </p>
+        <section className="App-intro">
+          <Input searchQuery={searchQuery} onNewSearch={query => this.handleNewSearch(query)}/>
           {list}
+        </section>
       </div>
+    );
+  }
+}
+
+class Input extends Component {
+  render() {
+    const { searchQuery, onNewSearch } = this.props;
+    console.log('in Input, searchQuery is', searchQuery);
+    return (
+      <input name="searchText" value={searchQuery}
+        onChange={({ target }) => onNewSearch(target.value)}/>
     );
   }
 }
