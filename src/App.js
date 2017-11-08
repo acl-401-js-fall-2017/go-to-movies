@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components'; 
+import dotEnv from 'dotenv';
+dotEnv.config();
 
-const omdbKey = process.env.REACT_APP_OMDB_API_KEY || '3db77742';
+const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
+
+const name = 'lame';
 
 class App extends Component {
   constructor(){
@@ -39,11 +43,9 @@ class App extends Component {
   }
 
   async doSearch(search) {
-    console.log('searching');
     this.setState({ results: [] });
     this.setState({ isLoading: true });
     const url = encodeURI(`http://www.omdbapi.com/?s=${this.state.search}&plot=short&r=json&apikey=${omdbKey}`);
-    console.log(url);
     const response = await fetch(url);
     const body = await response.json();
     setTimeout(()=>{
