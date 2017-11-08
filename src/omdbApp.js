@@ -11,4 +11,19 @@ export default class omdbApp extends Component {
       loading: false
     };
   }
+
+  componentDidMount() {
+    this.loadResource(this.state.resource);
+  }
+
+  async loadResource(resource) {
+    this.setState({ loading: true });
+    const response = await fetch(`http://www.omdbapi.com/?s=star+wars&apikey=${omdbKey}`);
+    const body = await response.json();
+    this.setState({
+      items: body.results,
+      loading: false
+    });
+  }
+
 }
