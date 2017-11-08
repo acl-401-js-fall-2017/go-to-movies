@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import dotEnv from 'dotenv';
 dotEnv.config();
 
-const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
+const omdbKey = process.env.REACT_APP_OMDB_API_KEY || '<enter Key here';
 
 const name = 'lame';
 
@@ -105,7 +105,6 @@ class App extends Component {
   }
 }
 
-
 class Movies extends Component {
   render() {
     const { results } =this.props;
@@ -116,7 +115,6 @@ class Movies extends Component {
     );
   }
 }
-
 
 export default App;
 
