@@ -8,7 +8,8 @@ class App extends Component {
     super();
     this.state = {
       items : [],
-      searchQuery : ''
+      searchQuery : '',
+      loading: false
     };
   }
 
@@ -17,13 +18,14 @@ class App extends Component {
   }
 
   async loadResource() {
+    this.setState({ loading:true });
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
     if (body.Response === 'True') {
-      this.setState({ items: body.Search });
+      this.setState({ items: body.Search, loading: false });
       }
     else {
-      this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ] });
+      this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ], loading: false });
     }
   }
   
@@ -34,12 +36,14 @@ class App extends Component {
   }
 
   render() {
-    const { items, searchQuery} = this.state;
+    const { items, searchQuery, loading} = this.state;
     const list = (
       <ul>
         {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}  
       </ul>
     );
+
+    const load = <div>Loading...</div>;
 
     return (
       <div>
@@ -49,7 +53,7 @@ class App extends Component {
         <section className="App-intro">
         <input name="searchText" value={searchQuery}
         onChange={({ target }) => this.handleNewSearch(target.value)}/>          
-        {list}
+        {loading ? load : list}
         </section>
       </div>
     );
