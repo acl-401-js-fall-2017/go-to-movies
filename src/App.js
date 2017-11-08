@@ -19,11 +19,10 @@ class App extends Component {
   }
 
   async loadResource() {
-
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
-    console.log(`Fetching from url /?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`);
-    console.log('BODY IS', body);
+    console.log(`Fetching from url http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`);
+    console.log('Body response is', body);
     if (body.Response === 'True') {
       this.setState({ items: body.Search });
       }
@@ -40,7 +39,8 @@ class App extends Component {
 
   render() {
     const { items, searchQuery } = this.state;
-    console.log('items is', items);
+    console.log('items array is', items);
+
     const list = (
       <ul>
         {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}  
