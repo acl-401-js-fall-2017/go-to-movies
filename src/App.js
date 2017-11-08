@@ -22,17 +22,23 @@ class App extends Component {
     const response = await fetch(`http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=${omdbKey}`)
     const body = await response.json();
     console.log('BODY IS', body);
-    this.setState({ items: body.Search })
+    if (body.Response === 'True') {
+      this.setState({ items: body.Search });
+      }
+    else {
+      this.setState({ items: [] });
+    }
   }
   
   handleNewSearch(value) {
     console.log('changing searchQuery to', value);
+    this.loadResource({ value });
     this.setState({ searchQuery: value });
   }
 
   render() {
     const { items, searchQuery } = this.state;
-
+    console.log('items is', items);
     const list = (
       <ul>
         {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}  
