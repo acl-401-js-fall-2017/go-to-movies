@@ -5,12 +5,11 @@ import './App.css';
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
 class App extends Component {
-
   constructor(){
     super();
     this.state = {
       items: [],
-      resource: 'people',
+      resource: 'Star%20Wars',
       loading: false
     };
   }
@@ -21,8 +20,11 @@ class App extends Component {
 
   async loadResource(resource){
     this.setState({ loading: true });
-    const response = await fetch();
+    const url = `http://www.omdbapi.com/?s=${resource}&plot=short&r=json&apikey=${omdbKey}`;
+    const response = await fetch(url);
     const body = await response.json();
+    console.log('url: ',url);
+    console.log('body: ',body);
     this.setState({
       items: body.results,
       loading: false
@@ -35,7 +37,19 @@ class App extends Component {
     });
   }
 
+  handleSubmit(event) {
+    console.log('handling submit');
+    event.preventDefault();
+    this.setState({ resource: this.element.value }, () => {
+      console.log(' changing resource to : ', this.element.value);
+      console.log(' new resource value :', this.state.resource);
+      this.loadResource(this.element.value);
+    });
+  }
+
   render() {
+    const { resource } = this.state;
+    
     return (
       <div className="App">
         <header className="App-header">
@@ -45,6 +59,23 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Search resource={resource}/>
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render(){
+    //const {} = this.props;
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            <input type="text" ref={el => this.element = el} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
