@@ -1,21 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
+
+export default class movieApp extends Component {
+  
+  constructor() {
+    super();
+    this.state = {
+      movies: [],
+      resource: 'title',
+      loading: false
+    };
+  }
+  
+  componentDidMount () {
+    this.loadResource(this.state.resource);
+  }
+
+  async loadResource(resource) {
+    this.setState({ loading: true });
+    const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${resource}`);
+    const body = await response.json();
+    this.setState({
+      movies: body.results,
+      loading: false
+    });
+  }
+
   render() {
+    const { movies, resource, loading } = this.state;
+
+    const list = (
+      <ul>
+        {movies.map(movie => <li key={movie.name}>{movie.name}</li>)}
+      </ul>
+    );
+
+    const load = <div>Loading...</div>;
+    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <section>
+        {loading ? load : list}
+      </section>
     );
   }
 }
-
-export default App;
