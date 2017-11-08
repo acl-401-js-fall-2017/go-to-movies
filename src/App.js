@@ -19,8 +19,10 @@ class App extends Component {
   }
 
   async loadResource() {
-    const response = await fetch(`http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=${omdbKey}`)
+
+    const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
+    console.log(`Fetching from url /?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`);
     console.log('BODY IS', body);
     if (body.Response === 'True') {
       this.setState({ items: body.Search });
