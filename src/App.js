@@ -37,10 +37,9 @@ class App extends Component {
 
   render() {
     const { items, searchQuery, loading} = this.state;
-    // const linkUrl = `http://www.imdb.com/title/${item}`
     const list = (
       <ul>
-        {items.map((item, i)=> <li key={i}><a href='http://www.imdb.com/title/tt1688653' >{item.Title}</a></li>)}  
+        {items.map((item, i)=> <li key={i}><a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a></li>)}  
       </ul>
     );
 
