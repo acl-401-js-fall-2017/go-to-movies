@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
@@ -12,6 +12,7 @@ class App extends Component {
       resource: 'Star%20Wars',
       loading: false
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -26,7 +27,7 @@ class App extends Component {
     console.log('url: ',url);
     console.log('body: ',body);
     this.setState({
-      items: body.results,
+      items: body,
       loading: false
     });
   }
@@ -48,26 +49,6 @@ class App extends Component {
   }
 
   render() {
-    const { resource } = this.state;
-    
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Search resource={resource}/>
-      </div>
-    );
-  }
-}
-
-class Search extends Component {
-  render(){
-    //const {} = this.props;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -80,5 +61,6 @@ class Search extends Component {
     );
   }
 }
+
 
 export default App;
