@@ -12,6 +12,7 @@
     "build": "react-scripts build",
     "pretest": "npm run lint",
     "test": "exit 0",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
   }
 }
