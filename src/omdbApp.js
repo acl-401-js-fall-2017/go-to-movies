@@ -56,13 +56,14 @@ export default class OmdbApp extends Component {
     );
 
     const load = <div>Loading...</div>;
-
+    
     return (
       <section>
         <label> Search : <input name='query' value={query}
           onChange={({ target }) => this.changeResource(target.value)}/>
         </label>
         
+        {!query ? <div>Enter a Movie to Search!</div> : null }
         {<div> Movies found: {items.length}</div>}
         {loading ? load : list}
       </section>
