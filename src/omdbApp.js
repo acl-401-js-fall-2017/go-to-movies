@@ -7,53 +7,54 @@ export default class OmdbApp extends Component {
     super();
     this.state = {
       items: [],
-      resource: 'Alien',
+      query: '',
       loading: false
     };
   }
 
   componentDidMount() {
-    this.loadResource(this.state.resource);
+    this.loadQuery(this.state.query);
   }
 
-  async loadResource(resource) {
+  async loadQuery(query) {
     this.setState({ loading: true });
-    const response = await fetch(`http://www.omdbapi.com/?s=${resource}&apikey=${omdbKey}`);
+    const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${omdbKey}`);
     const body = await response.json();
+    const items = body.Response === 'True' ? body.Search : [];
     this.setState({
-      items: body.Search,
+      items,
       loading: false
     });
   }
 
-  changeResource(resource) {
-    this.setState({ resource }, () => {
-      this.loadResource(resource);
+  changeResource(query) {
+    this.setState({ query }, () => {
+      this.loadQuery(query);
     });
   }
 
   render() {
-    const { resource, items, loading } = this.state;
-    const choice = ['Alien','Title', 'Year'];
+    const { query, items, loading } = this.state;
 
     const list = (
-      <ul>
-        {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}
-      </ul>
+      <section>
+        {items.map(item => <div key={item.imdbID}>
+          <h2> {item.Title} </h2>
+          <h3> Released: {item.Year} </h3>
+          <img src={item.Poster} alt='Movie Poster' />
+        </div>)}
+      </section>
     );
 
     const load = <div>Loading...</div>;
 
     return (
       <section>
-        {choice.map(choice => {
-          return <button key={choice} disabled={choice === resource}
-            onClick={() => this.changeResource(choice)}
-          >
-            {choice}
-          </button>;
-        })}
-        <div>{items.length} {resource}</div>
+        <label> Search : <input name='query' value={query}
+          onChange={({ target }) => this.changeResource(target.value)}/>
+        </label>
+        
+        {<div>{items.length} {query}</div>}
         {loading ? load : list}
       </section>
     );
