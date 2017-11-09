@@ -6,11 +6,11 @@
   height: 80px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+:local .AppHeader {
+  background-color: rgb(21, 12, 196);
+  height: 100px;
+  padding: 10px;
+  color: rgb(247, 247, 247);
 }
 
 .App-title {

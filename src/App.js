@@ -1,6 +1,7 @@
 // console log the values to see what I am passing and getting
 //give an if else for getting a null response to array.map to
 import React, { Component } from 'react';
+import Header from './Header';
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
@@ -70,21 +71,3 @@ export default class App extends Component {
     );
   }
 }
-
-class Header extends Component {
-  render() {
-    const { onResourceChange } = this.props;
-    return (
-      <header className='App-header'>
-        <form onSubmit={event =>{
-          event.preventDefault();
-          onResourceChange(event.target.elements.filter.value);
-        }}>
-          <input name="filter" />
-          <button type="submit">Search</button>
-        </form>
-      </header> 
-    );
-  }
-}
-
