@@ -49,7 +49,8 @@ export default class OmdbApp extends Component {
               and uses the Title that omdb sends to display that as the link name */}
             <h4> IMDB Link: <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a> </h4>
             <img src={item.Poster} alt='Movie Poster' />
-          </div>)}
+          </div>)
+        }
       </section>
     );
 
