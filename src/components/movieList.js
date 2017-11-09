@@ -22,7 +22,15 @@ class MovieList extends Component {
 
 
     return (
-      <div className="searchResults">
+      <div 
+        className="searchResults"
+        style={{
+          margin: 'auto 5em',
+          display: 'flex',
+          justifyContent: 'space-around',
+          flexWrap: 'wrap'
+        }}
+      >
         {loading ? loader : searchResults}
       </div>
     );

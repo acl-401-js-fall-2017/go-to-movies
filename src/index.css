@@ -8,3 +8,10 @@ body {
   margin: 3em;
 }
 
+.chrome-picker {
+  display: none;
+}
+
+.base:hover .chrome-picker {
+  display: initial;
+}

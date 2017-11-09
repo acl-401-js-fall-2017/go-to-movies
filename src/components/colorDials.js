@@ -32,7 +32,8 @@ class ColorDials extends Component {
           <input 
             value={colorSet.intensity * 100}
             type="range"
-            min="0"
+            min="1"
+            step="1"
             max="100"
             onChange={({ target }) => change[color].intensity(target)}
           />
@@ -41,7 +42,8 @@ class ColorDials extends Component {
           <input 
             value={colorSet.spread * 100}
             type="range"
-            min="0"
+            min="1"
+            step="1"
             max="200"
             onChange={({ target }) => change[color].spread(target)}
           />

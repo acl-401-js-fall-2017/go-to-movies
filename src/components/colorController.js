@@ -105,16 +105,17 @@ class ColorController extends Component {
           <h3
             style={{
               textAlign: 'left',
-              marginBottom: '0'
+              marginBottom: '0',
+              color: controls.bColor
             }}
           >
-            Base Color &nbsp;
-            <ChromePicker
-              color={controls.bColor}
-              onChange={({ target }) => change.color(target)}
-              onChangeComplete={({ hex }) => change.color(hex)}
-            />
+            Base Color
           </h3>
+          <ChromePicker
+            color={controls.bColor}
+            onChange={({ target }) => change.color(target)}
+            onChangeComplete={({ hex }) => change.color(hex)}
+          />
         </div>
       </div>
     );

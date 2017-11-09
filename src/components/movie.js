@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Movie extends Component {
   render() {
     const {
-      // Poster,
+      Poster,
       // Type,
       Title,
       Year,
@@ -11,36 +11,43 @@ class Movie extends Component {
     } = this.props.movieProps;
     const imdbLink = `http://www.imdb.com/title/${imdbID}/`;
     return (
-      <div 
+      <article 
         className="Movie"
         style={{
-          width: '80%',
-          margin: 'auto',
-          minWidth: '30em',
           display: 'flex',
-          justifyContent: 'space-between'
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          margin: '1em',
+          width: '20em'
         }}
       >
-        <p
+        <img 
+          src={Poster !== 'N/A' ? Poster : 'http://www.lacinefest.org/uploads/2/6/7/4/26743637/no-poster_orig.jpeg'}
+          alt={Title}
           style={{
-            marginRight: '3em',
-            width: '10em',
-            textAlign: 'left'
+            height: '30em',
+            width: '20em'
           }}
-        >
-          {Year}
-        </p>
-        <p
-          style={{
-            marginRight: '3em',
-            width: '20em',
-            textAlign: 'left'
-          }}
-        >
-          {Title}
-        </p>
-        <a href={imdbLink}><p>{imdbLink}</p></a>
-      </div>
+        />
+        <a href={imdbLink}>
+          <p
+            style={{
+ 
+              textAlign: 'center'
+            }}
+          >
+            {Title}
+          </p>
+          <p
+            style={{
+              
+              textAlign: 'center'
+            }}
+          >
+            {Year}
+          </p>
+        </a>
+      </article>
     );
   }
 }
