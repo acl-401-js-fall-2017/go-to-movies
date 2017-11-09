@@ -24,13 +24,18 @@ class App extends Component {
     if (body.Response === 'True') {
       let pageNumber = 0;
       let allResults = [];
+
       while (true) {
         pageNumber++;
+        console.log(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`);
         let pageResponse = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`)
         let pageBody = await pageResponse.json();
         allResults = allResults.concat(pageBody.Search);
-        if (allResults.length >= body.totalResults) break;
+        console.log(`is ${allResults.length} greater than ${body.totalResults}`)
+        if (allResults.length >= +(body.totalResults)) break;
       }
+      console.log('escaped while loop');
+      debugger; 
       this.setState({ items: allResults, loading: false });
       }
     else {
