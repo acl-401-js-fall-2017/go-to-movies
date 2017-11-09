@@ -41,7 +41,7 @@ export default class OmdbApp extends Component {
     const list = (
       <section>
         {items.map(item => 
-          <div class="item-divs" key={item.imdbID}>
+          <div className="item-divs" key={item.imdbID}>
             <h2> {item.Title} </h2>
             <h3> Released: {item.Year} </h3>
 
