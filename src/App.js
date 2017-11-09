@@ -40,11 +40,17 @@ export default class App extends Component {
   
   render() {
     const { filter, loading, items } = this.state;
-    const choices = ['Movie', 'Year', 'Goonies'];
-
     const list = (
-      <ul>
-        {items.map(item => <li key={item.imdbID}>{item.Title}</li>)}
+      <ul style={{ listStyle: 'none', display: 'flex', width: '100%', flexWrap: 'wrap', justifyContent: 'center', padding:'0' }}>
+        {items.map(item => 
+          <li 
+            key={item.imdbID}
+            style={{ padding:'2em' }}
+          >
+            <article><h3>{item.Title}</h3><img src={item.Poster} alt={item.imdbID} />
+            </article>
+          </li>
+        )}
       </ul>
     );
     
@@ -58,15 +64,9 @@ export default class App extends Component {
             return this.loadResource(filter);
           });
         }}/>
-        {choices.map(choice => {
-          return <button key={choice} disabled={choice === filter}
-            onClick={() => this.changeResource(choice)}
-          >
-            {choice}
-          </button>;
-        })}
-        <div>{items.length} {filter}</div>
+        <div>Showing the first {items.length} {filter} movies</div>
         {loading ? load : list}
+        <div>{items.Poster} {filter}</div>
       </section>
     );
   }
