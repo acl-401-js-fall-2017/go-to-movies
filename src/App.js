@@ -36,8 +36,6 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ resource: this.element.value }, () => {
-      console.log(' changing resource to : ', this.element.value);
-      console.log(' new resource value :', this.state.resource);
       this.loadResource(this.element.value);
     });
   }
