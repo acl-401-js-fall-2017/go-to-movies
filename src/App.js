@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       items : [],
       searchQuery : '',
-      loading: false
+      loading: false,
+      results: 0,
     };
   }
 
@@ -34,8 +35,7 @@ class App extends Component {
         console.log(`is ${allResults.length} greater than ${body.totalResults}`)
         if (allResults.length >= +(body.totalResults)) break;
       }
-      console.log('escaped while loop');
-      this.setState({ items: allResults, loading: false });
+      this.setState({ items: allResults, loading: false, results: body.totalResults });
       }
     else {
       this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ], loading: false });
@@ -49,11 +49,16 @@ class App extends Component {
   }
 
   render() {
-    const { items, searchQuery, loading} = this.state;
+    const { items, loading, results} = this.state;
     const list = (
       <ul>
         {items.filter(item=>item).map((item, i, items)=> {
-          return (<li key={i}><a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a></li>)
+          return (
+            <li key={i}>
+
+              <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a>
+            </li>
+          )
       })}  
       </ul>
     );
@@ -74,7 +79,7 @@ class App extends Component {
           <input name="textInput" />
           <button type="submit">Search</button>
         </form>
-
+        <h4>{results} Results</h4>
         {loading ? load : list}
         </section>
       </div>
