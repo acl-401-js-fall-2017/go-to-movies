@@ -50,13 +50,12 @@ class App extends Component {
   }
 
   render() {
-    const { items, loading, results} = this.state;
+    const { items, loading, results } = this.state;
     const list = (
       <ul>
         {items.filter(item=>item).map((item, i, items)=> {
           return (
             <li key={i}>
-
               <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a>
             </li>
           )
@@ -72,15 +71,7 @@ class App extends Component {
           <h1 className="App-title">MovieSearch.org</h1>
         </header>
 
-        <section className="centered">
-        <form onSubmit={ event=> {
-          event.preventDefault();
-          return this.handleNewSearch(event.target.elements.textInput.value);
-        }}>
-          <input name="textInput" />
-          <button type="submit">Search</button>
-        </form>
-        </section>
+        <Input newSearch={value => this.handleNewSearch(value)}/>
 
         <section className="centered">
         <p>{results} Results</p>
@@ -93,5 +84,24 @@ class App extends Component {
     );
   }
 }
+
+
+class Input extends Component {
+  render(){
+    const { newSearch } = this.props;
+    return (
+      <section className="centered">
+      <form onSubmit={ event=> {
+        event.preventDefault();
+        return newSearch(event.target.elements.textInput.value);
+      }}>
+        <input name="textInput" />
+        <button type="submit">Search</button>
+      </form>
+      </section>
+    );
+  };
+}
+
 
 export default App;
