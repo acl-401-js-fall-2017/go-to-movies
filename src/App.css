@@ -22,7 +22,19 @@
   font-size: large;
 }
 
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 50%
+}
+
+.wrapper img {
+  border: 4px solid;
+  border-color: black;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
