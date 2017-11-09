@@ -38,7 +38,7 @@ class App extends Component {
       this.setState({ items: allResults, loading: false, results: body.totalResults });
       }
     else {
-      this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ], loading: false });
+      this.setState({ loading: false });
     }
   }
   
