@@ -26,18 +26,15 @@ class App extends Component {
     const body = await response.json();
     console.log('url: ',url);
     console.log('body: ',body);
+    let searchResult;
+    body.Error ? searchResult = [] : searchResult = body.Search;
     this.setState({
-      items: body,
+      items: searchResult,
       loading: false
     });
   }
    
-  changeResource(resource){
-    this.setState({ resource }, () => {
-      this.loadResource(resource);
-    });
-  }
-
+  
   handleSubmit(event) {
     console.log('handling submit');
     event.preventDefault();
@@ -49,6 +46,16 @@ class App extends Component {
   }
 
   render() {
+    const { items, resource, loading } = this.state;
+
+    const list = (
+      <ul>
+        {items.map((item, i) => <li key={i}>{item.Title}</li>)}
+      </ul>
+    );
+
+    const load = <div>Loading...</div>;
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -57,10 +64,28 @@ class App extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        <div>{items.length} {resource}</div>
+        {loading ? load : list}
       </div>
     );
   }
 }
+
+// class Search extends Component{
+//   reder(){
+//     const { handleSubmit } = this.props;
+//     return (
+//       <div>
+//         <form onSubmit={handleSubmit()}>
+//           <label>
+//             <input type="text" ref={el => this.element = el} />
+//           </label>
+//           <input type="submit" value="Submit" />
+//         </form>
+//       </div>
+//     );
+//   }
+// }
 
 
 export default App;
