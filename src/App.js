@@ -10,8 +10,6 @@ dotEnv.config();
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY || '<enter Key here';
 
-const name = 'lame';
-
 class App extends Component {
   constructor(){
     super();
@@ -26,7 +24,7 @@ class App extends Component {
   }
 
   onEnter = (e) => {
-    if (e.charCode == 13) {
+    if (e.charCode === 13) {
       this.doSearch(this.state.search);
       this.setState({ search: '' });
     }
@@ -106,6 +104,8 @@ flex-direction: column;
 `;
 
 const SearchInput = styled.input`
+  font-size: 16px;
+  margin-bottom: 20px;
   width: ${props => props.isFocused ? '350px' : '300px'} ;
   height: ${props => props.isFocused ? '40px' : '30px'};
   text-align: center;
