@@ -51,6 +51,28 @@ class App extends Component {
 
   render() {
     const { items, loading, results } = this.state;
+
+    return (
+      <div>
+        <header className="App-header">
+          <h1 className="App-title">MovieSearch.org</h1>
+        </header>
+
+        <Input newSearch={value => this.handleNewSearch(value)}/>
+
+        <Display results={results} loading={loading} items={items} />
+
+      </div>
+    );
+  }
+}
+
+class Display extends Component {
+  render() {
+    const { items, results, loading } = this.props;
+
+    const load = <div>Loading...</div>;
+    
     const list = (
       <ul>
         {items.filter(item=>item).map((item, i, items)=> {
@@ -63,28 +85,19 @@ class App extends Component {
       </ul>
     );
 
-    const load = <div>Loading...</div>;
-
     return (
       <div>
-        <header className="App-header">
-          <h1 className="App-title">MovieSearch.org</h1>
-        </header>
-
-        <Input newSearch={value => this.handleNewSearch(value)}/>
-
-        <section className="centered">
-        <p>{results} Results</p>
-        </section>
-        
-        <section className="centered">
-        {loading ? load : list}
-        </section>
+      <section className="centered">
+      <p>{results} Results</p>
+      </section>
+      
+      <section className="centered">
+      {loading ? load : list}
+      </section>
       </div>
     );
   }
 }
-
 
 class Input extends Component {
   render(){
