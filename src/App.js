@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
-export default class movieApp extends Component {
+export default class App extends Component {
   
   constructor() {
     super();
@@ -14,35 +13,59 @@ export default class movieApp extends Component {
     };
   }
   
-  componentDidMount () {
-    this.loadResource(this.state.resource);
-  }
-
-  async loadResource(resource) {
-    this.setState({ loading: true });
-    const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${resource}`);
-    const body = await response.json();
-    this.setState({
-      movies: body.results,
-      loading: false
-    });
-  }
-
+  // componentDidMount () {
+  //   this.loadResource(this.state.resource);
+  // }
+  
   render() {
-    const { movies, resource, loading } = this.state;
-
-    const list = (
-      <ul>
-        {movies.map(movie => <li key={movie.name}>{movie.name}</li>)}
-      </ul>
-    );
-
-    const load = <div>Loading...</div>;
-    
+    const { input } = this.state;
     return (
-      <section>
-        {loading ? load : list}
-      </section>
+      <div className="App">
+        <p>hello</p>
+        <searchBar input={input}/>
+      </div>
     );
   }
 }
+
+class searchBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      input: 'Enter title here'
+    };
+  }
+  
+  render() {
+    const { input } = this.state;
+    return (
+      <label className="search-bar">Title:
+        <input type="search" value="{ input }" />>
+        <button type="submit">Search</button>
+      </label>
+    );
+  }
+}
+
+// class moviesList extends Component {
+  //   render() {
+    // const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
+    //     return (
+      //       const { movies, resource, loading } = this.state;
+      
+      //           const list = (
+//             <ul>
+//               {movies.map(movie => <li key={movie.name}>{movie.name}</li>)}
+//             </ul>
+//           );
+      
+//           const load = <div>Loading...</div>;
+          
+//           return (
+//             <section>
+//               {loading ? load : list}
+//             </section>
+//           );
+//     )
+//   }
+// }
