@@ -9,7 +9,7 @@ class App extends Component {
     super();
     this.state = {
       items: [],
-      resource: 'Star%20Wars',
+      resource: 'Star Wars',
       loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,8 +24,6 @@ class App extends Component {
     const url = `http://www.omdbapi.com/?s=${resource}&plot=short&r=json&apikey=${omdbKey}`;
     const response = await fetch(url);
     const body = await response.json();
-    console.log('url: ',url);
-    console.log('body: ',body);
     let searchResult;
     body.Error ? searchResult = [] : searchResult = body.Search;
     this.setState({
@@ -36,7 +34,6 @@ class App extends Component {
    
   
   handleSubmit(event) {
-    console.log('handling submit');
     event.preventDefault();
     this.setState({ resource: this.element.value }, () => {
       console.log(' changing resource to : ', this.element.value);
@@ -50,42 +47,43 @@ class App extends Component {
 
     const list = (
       <ul>
-        {items.map((item, i) => <li key={i}>{item.Title}</li>)}
+        {
+          items.map((item, i) => { 
+            if(item.Poster !== 'N/A'){
+              return (
+                <li key={i} className="Film">
+                  <figcaption>{item.Title}</figcaption>
+                  <figcaption>Year:{item.Year}</figcaption>
+                  <img src={item.Poster} className="Poster" alt={item.Title}></img>
+                </li>
+              );
+            } else {
+              return(
+                <li key={i}>{item.Title}</li>
+              );
+            }
+          })
+        }
       </ul>
     );
 
-    const load = <div>Loading...</div>;
+    const load =  <div className="loader"></div> ;
 
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            <input type="text" ref={el => this.element = el} />
+            <input className="Search" type="text" ref={el => this.element = el} />
           </label>
-          <input type="submit" value="Submit" />
+          <input className="Submit" type="submit" value="Submit" />
         </form>
-        <div>{items.length} {resource}</div>
+        <div className="Result">{items.length} results for {resource}</div>
         {loading ? load : list}
       </div>
     );
   }
 }
 
-// class Search extends Component{
-//   reder(){
-//     const { handleSubmit } = this.props;
-//     return (
-//       <div>
-//         <form onSubmit={handleSubmit()}>
-//           <label>
-//             <input type="text" ref={el => this.element = el} />
-//           </label>
-//           <input type="submit" value="Submit" />
-//         </form>
-//       </div>
-//     );
-//   }
-// }
 
 
 export default App;
