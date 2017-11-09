@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import dotEnv from 'dotenv';
 import Movies from './Movies';
 import NotFound from './notFound'; 
+import Details from './Details';
 
 dotEnv.config();
 
@@ -16,17 +17,17 @@ class App extends Component {
     this.state = {
       isNotFound: false,
       search: 'Search For Your Favorite Movie',
-      loading: false,
       isLoading: false,
       isFocused: false,
-      results: []
+      results: [],
+      selectedId: ''
     };
   }
 
   onEnter = (e) => {
     if (e.charCode === 13) {
       this.doSearch(this.state.search);
-      this.setState({ search: '' });
+      this.setState({ search: '', selectedId:'' });
     }
   }
 
@@ -41,6 +42,11 @@ class App extends Component {
 
   offFocus = () => {
     this.setState({ isFocused: false });
+  }
+
+  setSelectedId = (id) => {
+    console.log(id);
+    this.setState({ selectedId: id });
   }
 
   async doSearch(search) {
@@ -66,27 +72,32 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
          
-        <div className="main" style={{ display:'flex', justifyContent:'center' }}>
-          <div className="wrapper">
-            <SearchInput 
-              name='search'
-              isFocused={this.state.isFocused}
-              onKeyPress={this.onEnter}
-              onFocus={this.onFocus}
-              onBlur={this.offFocus}
-              value={this.state.search}
-              onChange={this.onSearchChange}
-            />
-            <Movies results={this.state.results}/>
+        <div className="wrapper">
 
-            <DisplayFlex shouldDisplay={this.state.isLoading}>
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">LoadingResults</h1>
-            </DisplayFlex>
-
-            <NotFound isNotFound={this.state.isNotFound}/>
-
+          <SearchInput 
+            name='search'
+            isFocused={this.state.isFocused}
+            onKeyPress={this.onEnter}
+            onFocus={this.onFocus}
+            onBlur={this.offFocus}
+            value={this.state.search}
+            onChange={this.onSearchChange}
+          />
+          <div style={{ display:'flex', justifyContent:'center'}}>
+            <NotFound isLoading={this.state.isLoading} isNotFound={this.state.isNotFound}/>
           </div>
+          <DisplayFlex shouldDisplay={this.state.isLoading}>
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">LoadingResults</h1>
+          </DisplayFlex>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Movies results={this.state.results} setSelectedId={this.setSelectedId}/>
+            <DisplayFlex shouldDisplay ={!this.state.isLoading}>
+              <Details search= {this.state.search} isLoading={this.state.selectedId} selectedId={this.state.selectedId}/>
+            </DisplayFlex>
+          </div>
+
         </div>
         
         <p className="App-intro">

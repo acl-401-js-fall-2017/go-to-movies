@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class NotFound extends Component {
   render() {
     return (
-      <DisplayFlex shouldDisplay={this.props.isNotFound}>
+      <DisplayFlex shouldDisplay={(this.props.isNotFound && !this.props.isLoading)}>
         <div style={{ display:'flex', justifyContent:'center' }}>
           <Pug alt={''}
             src="https://static1.squarespace.com/static/594974c0e58c62484cbd42f9/t/594986a45a730f2283302fc9/1497992070607/img_2835.jpg"
@@ -21,6 +21,5 @@ flex-direction: column;
 `;
 
 const Pug = styled.img`
-width:80%;
-height:400px;
+width: 100%;
 `;
