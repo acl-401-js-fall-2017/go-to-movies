@@ -22,7 +22,16 @@ class App extends Component {
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
     if (body.Response === 'True') {
-      this.setState({ items: body.Search, loading: false });
+      let pageNumber = 0;
+      let allResults = [];
+      while (true) {
+        pageNumber++;
+        let pageResponse = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`)
+        let pageBody = await pageResponse.json();
+        allResults = allResults.concat(pageBody.Search);
+        if (allResults.length >= body.totalResults) break;
+      }
+      this.setState({ items: allResults, loading: false });
       }
     else {
       this.setState({ items: [ {Title:'nothing', imdbID:'nope'} ], loading: false });
@@ -39,7 +48,9 @@ class App extends Component {
     const { items, searchQuery, loading} = this.state;
     const list = (
       <ul>
-        {items.map((item, i)=> <li key={i}><a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a></li>)}  
+        {items.filter(item=>item).map((item, i, items)=> {
+          return (<li key={i}><a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a></li>)
+      })}  
       </ul>
     );
 
