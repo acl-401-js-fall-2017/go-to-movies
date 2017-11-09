@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       items: [],
       resource: 'Star Wars',
-      loading: false
+      loading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
