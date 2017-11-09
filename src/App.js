@@ -42,14 +42,23 @@ class App extends Component {
     const { items, resource, loading } = this.state;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <input className="Search" type="text" ref={el => this.element = el} />
-          </label>
-          <input className="Submit" type="submit" value="Submit" />
-        </form>
+        <Search handleSubmit={this.handleSubmit} app={this} />
         <Movies items={items} loading={loading} resource={resource}/>
       </div>
+    );
+  }
+}
+
+class Search extends Component{
+  render(){
+    const { handleSubmit, app } = this.props;
+    return(
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input className="Search" type="text" ref={el => app.element = el} />
+        </label>
+        <input className="Submit" type="submit" value="Submit" />
+      </form>
     );
   }
 }
