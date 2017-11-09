@@ -22,7 +22,7 @@ export default class OmdbApp extends Component {
     const body = await response.json();
 
     // This will allow items to not turn up as undefined when the query does 
-    // not match what is being returned from the api
+    // not match anything that is being returned from the api
     this.setState({
       items: body.Response === 'True' ? body.Search : [],
       loading: false
