@@ -23,17 +23,17 @@ class App extends Component {
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
     const body = await response.json();
     if (body.Response === 'True') {
-      let pageNumber = 0;
+      let pageNumber = 1;
       let allResults = [];
 
       while (true) {
-        pageNumber++;
         console.log(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`);
         let pageResponse = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`)
         let pageBody = await pageResponse.json();
         allResults = allResults.concat(pageBody.Search);
         console.log(`is ${allResults.length} greater than ${body.totalResults}`)
         if (allResults.length >= +(body.totalResults)) break;
+        pageNumber++;
       }
       this.setState({ items: allResults, loading: false, results: body.totalResults });
       }
