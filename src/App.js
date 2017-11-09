@@ -93,7 +93,7 @@ class App extends Component {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Movies results={this.state.results} setSelectedId={this.setSelectedId}/>
             <DisplayFlex shouldDisplay ={!this.state.isLoading}>
-              <Details search= {this.state.search} isLoading={this.state.selectedId} selectedId={this.state.selectedId}/>
+              <Details search= {this.state.search} selectedId={this.state.selectedId}/>
             </DisplayFlex>
           </div>
 
