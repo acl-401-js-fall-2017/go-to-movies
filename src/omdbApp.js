@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
@@ -39,13 +40,13 @@ export default class OmdbApp extends Component {
     const { query, items, loading } = this.state;
 
     const list = (
-      <section>
+      <section className="wrapper">
         {items.map(item => 
-          <div className="item-divs" key={item.imdbID}>
+          <div key={item.imdbID}>
             <h2> {item.Title} </h2>
             <h3> Released: {item.Year} </h3>
 
-            {/* This will reference imdb website, adds the imdbID that omdb sends us back, 
+            {/* This will reference imdb website, adds the imdbID that omdb sends back, 
               and uses the Title that omdb sends to display that as the link name */}
             <h4> IMDB Link: <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a> </h4>
             <img src={item.Poster} alt='Movie Poster' />
