@@ -20,9 +20,11 @@ export default class OmdbApp extends Component {
     this.setState({ loading: true });
     const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${omdbKey}`);
     const body = await response.json();
-    const items = body.Response === 'True' ? body.Search : [];
+
+    // This will allow items to not turn up as undefined when the query does 
+    // not match what is being returned from the api
     this.setState({
-      items,
+      items: body.Response === 'True' ? body.Search : [],
       loading: false
     });
   }
@@ -54,7 +56,7 @@ export default class OmdbApp extends Component {
           onChange={({ target }) => this.changeResource(target.value)}/>
         </label>
         
-        {<div>{items.length} {query}</div>}
+        {<div>Movies found: {items.length}</div>}
         {loading ? load : list}
       </section>
     );
