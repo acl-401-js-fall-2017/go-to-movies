@@ -26,7 +26,7 @@ export default class Details extends Component {
   }
 
   render(){
-    const { details, dontDisplay } =this.state;
+    const { details } =this.state;
     if (!details) return (
       <div></div>
     ); 

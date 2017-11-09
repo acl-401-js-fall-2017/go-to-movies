@@ -45,7 +45,6 @@ class App extends Component {
   }
 
   setSelectedId = (id) => {
-    console.log(id);
     this.setState({ selectedId: id });
   }
 
@@ -83,7 +82,7 @@ class App extends Component {
             value={this.state.search}
             onChange={this.onSearchChange}
           />
-          <div style={{ display:'flex', justifyContent:'center'}}>
+          <div style={{ display:'flex', justifyContent:'center' }}>
             <NotFound isLoading={this.state.isLoading} isNotFound={this.state.isNotFound}/>
           </div>
           <DisplayFlex shouldDisplay={this.state.isLoading}>
