@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components'; 
 import dotEnv from 'dotenv';
+import Movies from './Movies';
+import NotFound from './notFound'; 
+
 dotEnv.config();
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY || '<enter Key here';
@@ -49,16 +52,12 @@ class App extends Component {
     const response = await fetch(url);
     const body = await response.json();
     setTimeout(()=>{
-      if(body.Response === 'True'){
-        this.setState({ isNotFound: false });
-        this.setState({ isLoading: false });
-        this.setState({ results: body.Search });
-      } else{
-        this.setState({ isLoading: false });
-        this.setState({ isNotFound: true });
-        this.setState({ results: [] });
-      }
-    },1000);
+      this.setState({ 
+        isLoading: false,
+        isNotFound: body.Response !== 'True',
+        results: body.Search || []
+      });
+    },500);
   }
 
   render() {
@@ -70,7 +69,7 @@ class App extends Component {
         </header>
          
         <div className="main" style={{ display:'flex', justifyContent:'center' }}>
-          <div className="wrraper">
+          <div className="wrapper">
             <SearchInput 
               name='search'
               isFocused={this.state.isFocused}
@@ -82,18 +81,12 @@ class App extends Component {
             />
             <Movies results={this.state.results}/>
 
-            <Loading isLoading={this.state.isLoading}>
+            <DisplayFlex shouldDisplay={this.state.isLoading}>
               <img src={logo} className="App-logo" alt="logo" />
               <h1 className="App-title">LoadingResults</h1>
-            </Loading>
-            <NotFound isNotFound={this.state.isNotFound}>
-              <div style={{ display:'flex', justifyContent:'center' }}>
-                <Pug alt={''}
-                  src="https://static1.squarespace.com/static/594974c0e58c62484cbd42f9/t/594986a45a730f2283302fc9/1497992070607/img_2835.jpg"
-                />
-              </div>
-              <h1 className="App-title">No results were found to match the search</h1>
-            </NotFound>
+            </DisplayFlex>
+
+            <NotFound isNotFound={this.state.isNotFound}/>
 
           </div>
         </div>
@@ -105,32 +98,11 @@ class App extends Component {
   }
 }
 
-class Movies extends Component {
-  render() {
-    const { results } =this.props;
-    return(
-      <ol>
-        {results.map((result, i) => <li key={i}>{result.Title}</li>)}
-      </ol>
-    );
-  }
-}
-
 export default App;
 
-const Pug = styled.img`
-width:80%;
-height:400px;
-`;
-
-const NotFound = styled.div`
-display: ${props => props.isNotFound ? 'flex' : 'none'};
+const DisplayFlex = styled.div`
+display: ${props => props.shouldDisplay ? 'flex' : 'none'};
 flex-direction: column;
-`;
-
-const Loading = styled.div`
-  display: ${props => props.isLoading ? 'flex' : 'none'};
-  flex-direction: column;
 `;
 
 const SearchInput = styled.input`
