@@ -35,7 +35,6 @@ class App extends Component {
         if (allResults.length >= +(body.totalResults)) break;
       }
       console.log('escaped while loop');
-      debugger; 
       this.setState({ items: allResults, loading: false });
       }
     else {
@@ -67,8 +66,15 @@ class App extends Component {
           <h1 className="App-title">MovieSearch.org</h1>
         </header>
         <section className="App-intro">
-        <input name="searchText" value={searchQuery}
-        onChange={({ target }) => this.handleNewSearch(target.value)}/>          
+
+        <form onSubmit={ event=> {
+          event.preventDefault();
+          return this.handleNewSearch(event.target.elements.textInput.value);
+        }}>
+          <input name="textInput" />
+          <button type="submit">Search</button>
+        </form>
+
         {loading ? load : list}
         </section>
       </div>
