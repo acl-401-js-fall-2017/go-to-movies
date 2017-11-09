@@ -19,7 +19,6 @@ export default class OmdbApp extends Component {
   async loadQuery(query) {
     this.setState({ loading: true });
     const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(query)}&apikey=${omdbKey}`);
-    console.log(`http://www.omdbapi.com/?s=${encodeURI(query)}&apikey=${omdbKey}`);
     const body = await response.json();
 
     // This will allow items to not turn up as undefined when the query does 
