@@ -71,8 +71,8 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">MovieSearch.org</h1>
         </header>
-        <section className="App-intro">
 
+        <section className="centered">
         <form onSubmit={ event=> {
           event.preventDefault();
           return this.handleNewSearch(event.target.elements.textInput.value);
@@ -82,11 +82,12 @@ class App extends Component {
         </form>
         </section>
 
-        <section className="App-intro">
+        <section className="centered">
         <p>{results} Results</p>
         </section>
-        <section className="App-intro">
-        <h1>{loading ? load : list}</h1>
+        
+        <section className="centered">
+        {loading ? load : list}
         </section>
       </div>
     );

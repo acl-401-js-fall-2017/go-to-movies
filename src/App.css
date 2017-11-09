@@ -9,7 +9,7 @@
   font-size: 1.5em;
 }
 
-.App-intro {
+.centered {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@
   font-weight: bold;
 }
 
-.App-intro li {
+.centered li {
   list-style: none;
   padding-bottom: 5px;
 }
