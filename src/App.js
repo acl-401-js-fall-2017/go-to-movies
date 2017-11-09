@@ -35,7 +35,8 @@ class App extends Component {
         if (allResults.length >= +(body.totalResults)) break;
         pageNumber++;
       }
-      this.setState({ items: allResults, loading: false, results: body.totalResults });
+
+      this.setState({ items: allResults, loading: false, results: allResults.length });
       }
     else {
       this.setState({ loading: false });
@@ -79,8 +80,13 @@ class App extends Component {
           <input name="textInput" />
           <button type="submit">Search</button>
         </form>
-        <h4>{results} Results</h4>
-        {loading ? load : list}
+        </section>
+
+        <section className="App-intro">
+        <p>{results} Results</p>
+        </section>
+        <section className="App-intro">
+        <h1>{loading ? load : list}</h1>
         </section>
       </div>
     );
