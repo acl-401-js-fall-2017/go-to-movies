@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FlipCard from 'react-flipcard';
+import FlipCard from 'react-flipcard-2';
 
 class Movie extends Component {
 
@@ -12,49 +12,74 @@ class Movie extends Component {
     } = this.props.movieProps;
     const imdbLink = `http://www.imdb.com/title/${imdbID}/`;
     return (
-      <FlipCard>
-        <div>
-          <article 
-            className="Movie"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              margin: '1em',
-              width: '20em'
-            }}
-          >
-            <img 
-              src={Poster !== 'N/A' ? Poster : 'http://www.lacinefest.org/uploads/2/6/7/4/26743637/no-poster_orig.jpeg'}
-              alt={Title}
+      <div
+        className="Movie"
+        style={{
+          display: 'flex',
+          height: '33em',
+          margin: '1em',
+          width: '20em'
+        }}
+      >
+
+        <FlipCard>
+          <div>
+            <article 
+              className="MovieFront"
               style={{
-                height: '30em',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                margin: '1em',
                 width: '20em'
               }}
-            />
-            <a href={imdbLink}>
-              <p
+            >
+              <img 
+                src={Poster !== 'N/A' ? Poster : 'http://www.lacinefest.org/uploads/2/6/7/4/26743637/no-poster_orig.jpeg'}
+                alt={Title}
+                style={{
+                  height: '30em',
+                  width: '20em'
+                }}
+              />
+            </article>
+              
+          </div>
+          <div>
+            <article 
+              className="MovieFront"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                margin: '1em',
+                height: '20em',
+                width: '20em'
+              }}
+            >
+              <h2
                 style={{
       
                   textAlign: 'center'
                 }}
               >
                 {Title}
-              </p>
-              <p
+              </h2>
+              <h3
                 style={{
                     
                   textAlign: 'center'
                 }}
               >
                 {Year}
-              </p>
-            </a>
-          </article>
-            
-        </div>
-        <div>Back</div>
-      </FlipCard>
+              </h3>
+              <a href={imdbLink}>
+                IMDB
+              </a>
+            </article>
+          </div>
+        </FlipCard>
+      </div>
     );
   }
 }
