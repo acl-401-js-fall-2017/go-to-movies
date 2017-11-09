@@ -16,32 +16,30 @@ export default class App extends Component {
 
 
 
-  //   //like an onload function in react
+  //like an onload function in react
   componentDidMount(){
     this.loadResource(this.state.resource);
   }
   
   async loadResource (filter) {
     this.setState({ loading: true });
-    console.log('=====filter', filter);
     const response = await fetch(`http://www.omdbapi.com/?s=${filter}&plot=short&r=json&apikey=${omdbKey}`);
     const body = await response.json();
     this.setState({
-      items: body.Search,
+      items: body.Search ||[],
       loading: false
     });
   }
   
   changeResource(change) {
-    console.log('=====changeres', change);
     this.setState({ resource: change }, () => {
       return this.loadResource(change);
     });
   }
   
   render() {
-    const { resource, loading, items } = this.state;
-    const choices = ['Title', 'Year', 'Goonies'];
+    const { filter, loading, items } = this.state;
+    const choices = ['Movie', 'Year', 'Goonies'];
 
     const list = (
       <ul>
@@ -53,21 +51,20 @@ export default class App extends Component {
     
     return (
       <section>
-        <Header filter={resource} onResourceChange={filter => {
-          console.log('=====filterasfg', filter);
+        <Header filter={filter} onResourceChange={filter => {
           this.setState({ filter });
           this.setState({ resource: filter }, () => {
             return this.loadResource(filter);
           });
         }}/>
         {choices.map(choice => {
-          return <button key={choice} disabled={choice === resource}
+          return <button key={choice} disabled={choice === filter}
             onClick={() => this.changeResource(choice)}
           >
             {choice}
           </button>;
         })}
-        <div>{items.length} {resource}</div>
+        <div>{items.length} {filter}</div>
         {loading ? load : list}
       </section>
     );
@@ -76,13 +73,16 @@ export default class App extends Component {
 
 class Header extends Component {
   render() {
-    const { resource, onResourceChange } = this.props;
+    const { onResourceChange } = this.props;
     return (
       <header className='App-header'>
-        <input value={resource} onChange={({ target }) =>{
-          console.log('=====target.value', target.value);
-          onResourceChange(target.value);
-        }}/>
+        <form onSubmit={event =>{
+          event.preventDefault();
+          onResourceChange(event.target.elements.filter.value);
+        }}>
+          <input name="filter" />
+          <button type="submit">Search</button>
+        </form>
       </header> 
     );
   }
