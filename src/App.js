@@ -1,5 +1,3 @@
-// console log the values to see what I am passing and getting
-//give an if else for getting a null response to array.map to
 import React, { Component } from 'react';
 import Header from './Header';
 
@@ -27,7 +25,7 @@ export default class App extends Component {
     const response = await fetch(`http://www.omdbapi.com/?s=${filter}&plot=short&r=json&apikey=${omdbKey}`);
     const body = await response.json();
     this.setState({
-      items: body.Search ||[],
+      items: body.Search || [], //if null then empty array
       loading: false
     });
   }
@@ -47,7 +45,7 @@ export default class App extends Component {
             key={item.imdbID}
             style={{ padding:'2em' }}
           >
-            <article><h3>{item.Title}</h3><img src={item.Poster} alt={item.imdbID} />
+            <article><h3>{item.Title}</h3><img src={item.Poster === 'N/A' ? 'http://www.gstatic.com/tv/thumb/movieposters/8880256/p8880256_p_v8_ab.jpg' : item.Poster} alt={item.imdbID} /> 
             </article>
           </li>
         )}
