@@ -19,6 +19,7 @@ export default class OmdbApp extends Component {
   async loadQuery(query) {
     this.setState({ loading: true });
     const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${omdbKey}`);
+    console.log(`http://www.omdbapi.com/?s=${query}&apikey=${omdbKey}`);
     const body = await response.json();
 
     // This will allow items to not turn up as undefined when the query does 
@@ -56,7 +57,7 @@ export default class OmdbApp extends Component {
           onChange={({ target }) => this.changeResource(target.value)}/>
         </label>
         
-        {<div>Movies found: {items.length}</div>}
+        {<div> Movies found: {items.length}</div>}
         {loading ? load : list}
       </section>
     );
