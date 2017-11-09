@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import Display from './Display';
+
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
 class App extends Component {
@@ -62,38 +64,6 @@ class App extends Component {
 
         <Display results={results} loading={loading} items={items} />
 
-      </div>
-    );
-  }
-}
-
-class Display extends Component {
-  render() {
-    const { items, results, loading } = this.props;
-
-    const load = <div>Loading...</div>;
-    
-    const list = (
-      <ul>
-        {items.filter(item=>item).map((item, i, items)=> {
-          return (
-            <li key={i}>
-              <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a>
-            </li>
-          )
-      })}  
-      </ul>
-    );
-
-    return (
-      <div>
-      <section className="centered">
-      <p>{results} Results</p>
-      </section>
-      
-      <section className="centered">
-      {loading ? load : list}
-      </section>
       </div>
     );
   }
