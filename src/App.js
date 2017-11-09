@@ -23,7 +23,7 @@ class App extends Component {
 
   async loadResource() {
     this.setState({ loading:true });
-    const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`)
+    const response = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&apikey=${omdbKey}`);
     const body = await response.json();
     if (body.Response === 'True') {
       let pageNumber = 1;
@@ -31,16 +31,16 @@ class App extends Component {
 
       while (true) {
         console.log(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`);
-        let pageResponse = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`)
+        let pageResponse = await fetch(`http://www.omdbapi.com/?s=${encodeURI(this.state.searchQuery)}&page=${pageNumber}&apikey=${omdbKey}`);
         let pageBody = await pageResponse.json();
         allResults = allResults.concat(pageBody.Search);
-        console.log(`is ${allResults.length} greater than ${body.totalResults}`)
+        console.log(`is ${allResults.length} greater than ${body.totalResults}`);
         if (allResults.length >= +(body.totalResults)) break;
         pageNumber++;
       }
 
       this.setState({ items: allResults, loading: false, results: allResults.length });
-      }
+    }
     else {
       this.setState({ loading: false });
     }
@@ -49,7 +49,7 @@ class App extends Component {
   handleNewSearch(value) {
     this.setState({ searchQuery: value }, () => {
       this.loadResource({ value });
-    })
+    });
   }
 
   render() {

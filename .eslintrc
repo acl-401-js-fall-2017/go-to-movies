@@ -1,6 +1,7 @@
 {
     "extends": ["eslint:recommended", "react-app"],
     "rules": {
+        "no-constant-condition": "off",
         "no-console": "warn",
         "indent": ["error", 2],
         "quotes": ["error", "single"],
