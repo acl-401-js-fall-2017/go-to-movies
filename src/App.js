@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MovieList from './Movies';
+import Details from './Details';
 
 const Api_Key = process.env.REACT_APP_OMDB;
 
@@ -10,8 +12,11 @@ class App extends Component {
     this.state ={
       items: [],
       search: 'rambo',
-      loading: false
+      details: null,
+      loading: false,
+      displayMovies: false
     };
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
   
   componentDidMount() {
@@ -34,48 +39,94 @@ class App extends Component {
         const items = res.Response === 'True' ? res.Search : [];
         this.setState({ 
           items,
-          loading: false
+          loading: false,
+          displayMovies: true
         });
         console.log('items', this.state.items);
       }
       );  
   }
 
-
   changeResource(search) {
     this.setState({ search }, () => {
       this.fetchMovies(search);
     });
   }
+
+  onSearchSubmit(event) {
+    event.preventDefault();
+    this.changeResource(event.target.search.value);
+  }
+
+
+
+
+  fetchDetails(details){
+    
+    fetch(`http://www.omdbapi.com/?apikey=${Api_Key}&t=${details}`)
+      .then(res => {
+        if(!res.status === 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+           res.status);
+          return;
+        }else {
+          return res.json();
+        }
+      })
+      .then(res => {
+        const details = res;
+        this.setState({ 
+          details,
+          displayMovies: false
+        });
+        console.log('details', this.state.details);
+      }
+      );  
+  }
+
+  changeDetailResource(details) {
+    this.setState({ details }, () => {
+      this.fetchMovies(details);
+    });
+  }
+
+  
+
   
   render() {
-    const { items, search, loading } = this.state;
-    
-    const list = (
-      <div>
-        {items.map(item => <div key={item.imdbID}>
-          <h2> {item.Title} </h2>
-          <h3>Released: {item.Year} </h3>
-          <img src={item.Poster} alt='movie poster'/>
-        </div>)}
-      </div>
-    );
-
-    const load = <div>Loading...</div>;
-    
+    const { items, search, loading, details , displayMovies } = this.state;
+  
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Go to Movies</h1>
         </header>
-        <div>
-          <label>Search Movies : <input name='search' value={search}
-            onChange={({ target }) => this.changeResource(target.value)}/>
-          </label>
+        <div className="search">
+          <form onSubmit={this.onSearchSubmit}>
+            <input name='search' defaultValue={search}/>
+            <input type="submit" value="search movies"/>
+          </form>
+          
         </div>
-        <div>{loading ? load :list}</div>
+        { displayMovies ? (
+          <MovieList 
+            items={items}
+            loading={loading}
+            onDetails={(event) => {
+              event.preventDefault();
+              console.log(event.target.id);
+              this.fetchDetails(event.target.id);
+            }}
+          />
+        ) : (
+          <Details 
+            details={details}
+            onGoBack={()=> this.setState({ displayMovies: true })}/>
+        ) }
+       
       </div>
+      
     );
   }
 }
