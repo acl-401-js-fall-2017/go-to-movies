@@ -45,7 +45,13 @@ const loader = (
 
 const noResultsMessage = (
   <div className="resultsless">
-    no results
+    <img
+      src="http://www.lansky.cc/nothing.jpg"
+      alt="Nothing to see here."
+      style={{
+        height: '70%'
+      }}
+    />
   </div>
 );
 

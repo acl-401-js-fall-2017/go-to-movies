@@ -4,7 +4,6 @@ class Movie extends Component {
   render() {
     const {
       Poster,
-      // Type,
       Title,
       Year,
       imdbID

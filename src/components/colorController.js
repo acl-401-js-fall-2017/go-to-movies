@@ -23,8 +23,9 @@ class ColorController extends Component {
         className="colorController"
         style={{
           color: 'white',
-          width: '10em',
+          width: '17%',
           margin: '3em',
+          marginLeft: '0',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around'
@@ -63,7 +64,7 @@ class ColorController extends Component {
           >
             Alpha
           </h3>
-          <label>intensity
+          <label>intensity&nbsp;&nbsp;
             <input 
               value={a.intensity * 100}
               type="range"
@@ -72,7 +73,7 @@ class ColorController extends Component {
               onChange={({ target }) => change.alpha.intensity(target)}
             />
           </label>
-          <label>spread
+          <label>spread&nbsp;&nbsp;
             <input 
               value={a.spread * 100}
               type="range"
@@ -81,7 +82,7 @@ class ColorController extends Component {
               onChange={({ target }) => change.alpha.spread(target)}
             />
           </label>
-          <label>offset
+          <label>offset&nbsp;&nbsp;
             <input 
               value={a.offset}
               type="range"
@@ -102,15 +103,17 @@ class ColorController extends Component {
             textAlign: 'right'
           }}
         >
-          <h3
+          <h1
             style={{
-              textAlign: 'left',
+              textAlign: 'center',
+              marginTop: '0',
               marginBottom: '0',
-              color: controls.bColor
+              color: controls.bColor,
+              textShadow: '1px 1px 1px rgb(255, 255, 255)'
             }}
           >
             Base Color
-          </h3>
+          </h1>
           <ChromePicker
             color={controls.bColor}
             onChange={({ target }) => change.color(target)}

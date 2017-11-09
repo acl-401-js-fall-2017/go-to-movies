@@ -28,7 +28,7 @@ class ColorDials extends Component {
         >
           {color}
         </h3>
-        <label>intensity
+        <label>intensity&nbsp;&nbsp;
           <input 
             value={colorSet.intensity * 100}
             type="range"
@@ -38,7 +38,7 @@ class ColorDials extends Component {
             onChange={({ target }) => change[color].intensity(target)}
           />
         </label>
-        <label>spread
+        <label>spread&nbsp;&nbsp;
           <input 
             value={colorSet.spread * 100}
             type="range"
@@ -48,7 +48,7 @@ class ColorDials extends Component {
             onChange={({ target }) => change[color].spread(target)}
           />
         </label>
-        <label>offset
+        <label>offset&nbsp;&nbsp;
           <input 
             value={colorSet.offset}
             type="range"
