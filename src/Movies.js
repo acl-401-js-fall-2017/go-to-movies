@@ -4,7 +4,7 @@ export default class Movies extends Component {
   render() {
     const { results } =this.props;
     return(
-      <ul>
+      <div>
         {results.map((result, i) =>{
           return(
             <li key={i} style={{ marginBottom:5, listStyle:'none' }}>
@@ -18,7 +18,7 @@ export default class Movies extends Component {
             </li>
           );
         })}
-      </ul>
+      </div>
     );
   }
 }
