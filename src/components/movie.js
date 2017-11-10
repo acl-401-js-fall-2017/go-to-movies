@@ -104,7 +104,7 @@ class Movie extends Component {
               <p>Genre: {details.Genre}</p>
               <p>Metascore: {details.Metascore}</p>
               <p>IMDB Rating: {details.imdbRating}</p>
-              <a href={imdbLink}>IMDB</a>
+              <a href={imdbLink} tabIndex="-1">IMDB</a>
             </article>
           </div>
         </FlipCard>
