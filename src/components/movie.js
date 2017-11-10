@@ -3,11 +3,40 @@ import FlipCard from 'react-flipcard-2';
 
 class Movie extends Component {
 
+  constructor() {
+    super();
+    this.state={
+      id: '',
+      details: {},
+      needsDetails: true,
+      loading: false
+    };
+  }
+
+  async getDetails() {
+    this.setState({ loading: true });
+    const response = await fetch(`http://www.omdbapi.com/?i=${this.state.id}&r=json&apikey=3db77742`);
+    const body = await response.json();
+    this.setState({ 
+      details: body,
+      loading: false,
+      needsDetails: false
+    });
+  }
+
+  handleHover(mov) {
+    if(mov.state.needsDetails) mov.getDetails();
+  }
+
+  componentDidMount() {
+    this.setState({ id: this.props.movieProps.imdbID });
+  }
+
   render() {
+    const { details } = this.state;
     const {
       Poster,
       Title,
-      Year,
       imdbID
     } = this.props.movieProps;
     const imdbLink = `http://www.imdb.com/title/${imdbID}/`;
@@ -18,8 +47,9 @@ class Movie extends Component {
           display: 'flex',
           height: '33em',
           margin: '1em',
-          width: '20em'
+          width: '20em',
         }}
+        onMouseOver={() => this.handleHover(this)}
       >
 
         <FlipCard>
@@ -31,6 +61,7 @@ class Movie extends Component {
                 flexDirection: 'column',
                 justifyContent: 'space-around',
                 margin: '1em',
+                height: '30em',
                 width: '20em'
               }}
             >
@@ -53,29 +84,23 @@ class Movie extends Component {
                 flexDirection: 'column',
                 justifyContent: 'space-around',
                 margin: '1em',
-                height: '20em',
-                width: '20em'
+                padding: '1.5em',
+                paddingBottom: '2em',
+                height: '26.5em',
+                width: '17em',
+                textAlign: 'center',
+                backgroundColor: 'rgb(245, 245, 245)',
+                
               }}
             >
-              <h2
-                style={{
-      
-                  textAlign: 'center'
-                }}
-              >
-                {Title}
-              </h2>
-              <h3
-                style={{
-                    
-                  textAlign: 'center'
-                }}
-              >
-                {Year}
-              </h3>
-              <a href={imdbLink}>
-                IMDB
-              </a>
+              <h2>{Title}</h2>
+              <p>Released: {details.Released}</p>
+              <p>Rated: {details.Rated}</p>
+              <p>Director: {details.Director}</p>
+              <p>Genre: {details.Genre}</p>
+              <p>Metascore: {details.Metascore}</p>
+              <p>IMDB Rating: {details.imdbRating}</p>
+              <a href={imdbLink}>IMDB</a>
             </article>
           </div>
         </FlipCard>
