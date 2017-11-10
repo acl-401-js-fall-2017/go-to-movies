@@ -46,7 +46,7 @@ class Movie extends Component {
         style={{
           display: 'flex',
           height: '33em',
-          margin: '1em',
+          margin: '0.5em',
           width: '20em',
         }}
         onMouseOver={() => this.handleHover(this)}
@@ -89,11 +89,15 @@ class Movie extends Component {
                 height: '26.5em',
                 width: '17em',
                 textAlign: 'center',
-                backgroundColor: 'rgb(245, 245, 245)',
+                backgroundColor: 'rgb(230, 230, 230)',
                 
               }}
             >
-              <h2>{Title}</h2>
+              <h3 style={{ 
+                marginTop: '0',
+                backgroundColor: 'rgb(245, 245, 245)', 
+                padding: '0.5em' 
+              }}>{Title}</h3>
               <p>Released: {details.Released}</p>
               <p>Rated: {details.Rated}</p>
               <p>Director: {details.Director}</p>
