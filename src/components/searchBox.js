@@ -37,7 +37,7 @@ class SearchBox extends Component {
           <p>type: </p>
           <select
             value={search.type}
-            onChange={({target}) => onSearchTypeChange(target.value)}
+            onChange={({ target }) => onSearchTypeChange(target.value)}
           >
             <option value='all'>all</option>
             <option value='movie'>movie</option>
@@ -49,7 +49,7 @@ class SearchBox extends Component {
           <p>page: </p>
           <select
             value={search.page}
-            onChange={({target}) => onSearchPageChange(target.value)}
+            onChange={({ target }) => onSearchPageChange(target.value)}
           > Page:
             {pageOptions}
           </select>

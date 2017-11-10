@@ -24,7 +24,7 @@ class Colors extends Component {
                 height: '1px'
               }}
             ></div>
-          )
+          );
         })}
       </div>
     );

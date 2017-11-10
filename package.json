@@ -10,10 +10,14 @@
     "styled-components": "^2.2.3"
   },
   "scripts": {
+    "lint": "eslint .",    
     "start": "react-scripts start",
     "build": "react-scripts build",
     "pretest": "npm run lint",
     "test": "exit 0",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1"
   }
 }
