@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import OmdbApp from './OmdbApp';
+import MovieApp from './MovieApp';
 
 class App extends Component {
   render() {
@@ -12,7 +12,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Reel Me!</h1>
         </header>
         <article className="App-intro">
-          <OmdbApp />
+          <MovieApp />
         </article>
       </div>
     );

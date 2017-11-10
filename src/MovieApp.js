@@ -3,7 +3,7 @@ import './App.css';
 
 const omdbKey = process.env.REACT_APP_OMDB_API_KEY;
 
-export default class OmdbApp extends Component {
+export default class MovieApp extends Component {
   constructor() {
     super();
     this.state = {
