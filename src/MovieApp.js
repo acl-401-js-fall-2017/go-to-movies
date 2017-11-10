@@ -49,7 +49,7 @@ export default class MovieApp extends Component {
             {/* This will reference imdb website, adds the imdbID that omdb sends back, 
               and uses the Title that omdb sends to display that as the link name */}
             <h4> IMDB Link: <a href={'http://www.imdb.com/title/' + item.imdbID}>{item.Title}</a> </h4>
-            <img src={item.Poster} alt='Movie Poster' />
+            <img src={item.Poster} alt='Movie Poster Not Found' />
           </div>)
         }
       </section>
