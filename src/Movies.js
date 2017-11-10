@@ -7,10 +7,7 @@ export default class Movies extends Component {
       <div>
         {results.map((result, i) =>{
           return(
-            <li key={i} style={{ marginBottom:5, listStyle:'none' }}>
-              <a href={`https://www.imdb.com/title/${result.imdbID}/`}>
-                <p className='Movie-title'>{result.Title}</p>
-              </a>
+            <li key={i} style={{ marginBottom:15, listStyle:'none' }}>
               <img 
                 alt={''}
                 src={result.Poster}

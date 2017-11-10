@@ -31,22 +31,21 @@ export default class Details extends Component {
       <div></div>
     ); 
     return(
-      <div style={{ position: 'fixed', width: '20%', marginTop:'100px', marginLeft:'50px' }}>
-        <li  style={{ marginBottom:5, listStyle:'none' }}>
-          {details.Year}
-        </li>
+      <div style={{ position: 'fixed', width: '20%', marginTop:'50px', marginLeft:'50px' }}>
         <li style={{ marginBottom:5, listStyle:'none' }}>
-          {details.Ratings.map((rating, i) => <li key={i}>{rating.Source} {rating.Value}</li>)}
+          <a href={`https://www.imdb.com/title/${details.imdbID}`}>
+            <p className='Movie-title'>{details.Title}  ({details.Year})</p>
+          </a>
         </li>
         <li style={{ marginBottom:5, listStyle:'none' }}>
           {details.Genre}
         </li>
         <li style={{ marginBottom:5, listStyle:'none' }}>
-          {details.Year}
-        </li>
-        <li style={{ marginBottom:5, listStyle:'none' }}>
           {details.Plot}
         </li> 
+        <li style={{ marginBottom:5, listStyle:'none' }}>
+          {details.Ratings.map((rating, i) => <li key={i}>{rating.Source} {rating.Value}</li>)}
+        </li>
       </div>
     );
   }
