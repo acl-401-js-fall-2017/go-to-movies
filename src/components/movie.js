@@ -94,7 +94,7 @@ class Movie extends Component {
               }}
             >
               <h3 style={{ 
-                marginTop: '0',
+                margin: '0 auto',
                 backgroundColor: 'rgb(245, 245, 245)', 
                 padding: '0.5em' 
               }}>{Title}</h3>
