@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.searchBox {
+  margin: 3em;
+}
+
+.searchBox span {
+  display: inline-block
+}
+
+.searchBox p, .searchBox select, .searchBox .sc-bdVaJa {
+  display: inline
+}
+
+.searchBox .sc-bdVaJa {
+  width: 18em
+}
+
+.chrome-picker {
+  display: none;
+}
+
+.base:hover .chrome-picker {
+  display: initial;
+}
