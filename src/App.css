@@ -33,9 +33,9 @@
 }
 
 .flexBox {
-  width: 900px;
+  
   display: flex;
-  justify-content: center; 
+  justify-content: space-around; 
   flex-wrap: wrap;
 }
 
@@ -48,4 +48,28 @@
 
 .flexItem img {
   height: 40%;
+}
+
+.flexList {
+  margin: 10%;
+  border: 1px solid #fff;
+  height: 60%;
+  text-align: left;
+  list-style:inside;
+  list-style-type: none;
+
+}
+ul {
+  list-style-type: none;
+}
+
+li span {
+  display:inline-block;
+  width: 100px;
+  font-weight: bold;
+  font-family: Inconsolata,monospace;
+}
+
+.flexBox img {
+  height: 80%;
 }

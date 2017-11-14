@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MovieList from './Movies';
-import Details from './Details';
+import MovieList from './components/Movies';
+import Details from './components/Details';
 
 const Api_Key = process.env.REACT_APP_OMDB;
 
@@ -11,7 +11,7 @@ class App extends Component {
     super();
     this.state ={
       items: [],
-      search: 'rambo',
+      search: 'Star Wars',
       details: null,
       loading: false,
       displayMovies: false
