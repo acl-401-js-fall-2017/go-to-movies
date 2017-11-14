@@ -115,7 +115,6 @@ class App extends Component {
             loading={loading}
             onDetails={(event) => {
               event.preventDefault();
-              console.log(event.target.id);
               this.fetchDetails(event.target.id);
             }}
           />
@@ -124,7 +123,6 @@ class App extends Component {
             details={details}
             onGoBack={()=> this.setState({ displayMovies: true })}/>
         ) }
-       
       </div>
       
     );
