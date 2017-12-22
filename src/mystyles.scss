@@ -1,0 +1,13 @@
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "../node_modules/bulma/sass/utilities/functions";
+@import url('https://fonts.googleapis.com/css?family=Poiret+One|Roboto');
+
+$primary: $blue;
+
+$family-cursive: "Poiret One";
+$family-serif: "Roboto";
+
+$family-primary: $family-cursive;
+$family-title: $family-serif;
+
+@import "../bulma";
