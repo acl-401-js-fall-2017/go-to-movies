@@ -1,0 +1,20 @@
+{
+  "name": "go-to-movies",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bulma": "^0.6.1",
+    "node-sass-chokidar": "0.0.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.17"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar --include-path ./src/styles src/ -o src/"
+  }
+}
